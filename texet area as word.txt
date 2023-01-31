@@ -1,0 +1,16 @@
+4..to create text as word go to this link
+https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/quick-start.html
+4.1..put your texet area in dive and give it id in textarea like that
+<div id="editor"></div>
+4.2..put it in footer
+<script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+4.3..put js code in end of page
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+4.4..to show this html description put your variable in 
+{! yourVariable !}

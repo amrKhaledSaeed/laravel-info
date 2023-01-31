@@ -1,0 +1,36 @@
+https://www.youtube.com/watch?v=QMj_15gXz70&list=PLa2qNhNPBi8fQfhXdINMaCBKBf9kp1ljP
+//this is link of vieo
+1..copy your project you want work it an past it in
+1.1..opent any folder
+1.2..write in serarch
+\\wsl$
+1.3../uponto/home/ubontoUserNAme/paste project here
+1.4..from your project open vs code
+1.5..open terminal ctr+~ to opne terminal
+2..got to sail documentation to Installing Sail Into Existing Applications
+https://laravel.com/docs/9.x/sail#installing-sail-into-existing-applications
+3..in terminal run this command to install sail backage
+composer require laravel/sail --dev
+3.1..run this command this command will be show choies for DB will use and create docker.compose file
+php artisan sail:install
+3.1.1..write number of your choise
+3.1.1.1..in docer.compose the sitting of your db
+4..error permission denied when run sail up solve it
+4.1..to know the permistion of command run
+stat the command that make error 
+or
+stat -c '%a' the command that make error
+4.2..will return Access:0664
+mean he cannot write in this file
+4.3..to solve this will change the number 644 to 755 run command
+chmod 755 the command that make error
+4.4..run the command that make error 
+4.4.1..if get error copy the exetention in error and run thes command
+chmod 755 past
+5..put DB information in env 
+5.1..any chang need run this comand
+php artisan cinfig:clear
+6..creat db
+sail artisan migrate
+7..to stop sail project run 
+./vendor/bin/sail down

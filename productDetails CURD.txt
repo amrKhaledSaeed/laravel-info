@@ -1,0 +1,77 @@
+...v10..00.48.00
+1.1..create controller 
+php artisan make:controller ProductDetailsController 
+1.2..go to web.php and  create route upload
+Route::get('product/details/upload',[ProductDetailsController::class, 'upload'])->name('product.details.uploadPage');
+1.3..go to create folder in view\admin\productDetails\upload.blade.php
+1.4..go to controller and create upload function
+public function upload()
+{
+	return view('admin.productDetails.upload');
+}
+1.5..go to web.php
+Route::post('product/details/upload',[ProductDetailsController::class, 'upload'])->name('product.details.upload');
+1.6..go to create import
+php artisan make:import UploadProductDetails --model=ProductDetail
+1.6.1..go to import->model()
+/*
+this is idea for upload image from excel shet
+$row['name'];
+$row['product_id']; //if it =2
+if 2 in folder images
+if true
+will make create with image 
+if no
+create without image
+*/
+1.7..got to ProductDetails model and add $fillable
+protected $fillable=['image', 'stock', 'product_id', 'size_id', 'color_id'];
+ 1.8..go to import->model->return
+'stock' => $row['stock'],
+'color_id' => $row['color_id'],
+'size_id' => $row['size_id'],
+'product_id' => $row['product_id'],
+1.8..create function rules(): array
+public function rules():array
+{
+	return Product::sheetRules();
+}
+1.9..go to model and create function
+public function()sheetRules()
+{
+	return[
+		'product_id' => 'required|exists:products,id',
+		'size_id' => 'required|exists:size,id',
+		'color_id' => 'required|exists:color,id',
+		'stock' => 'required',
+		
+	];
+}
+1.8..go to import and create function fail to return error message
+ public function fail($key,$error,$row)
+    {
+        $failRows[]=new Failure($this->row_number,$key,$error,$row);//$this->row_number:the class it selfe; $key: like name_ar; $error: body of error; $row: nu
+       throw new \Maatwebsite\Excel\Validators\ValidationException(
+        \Illuminate\Validation\ValidationException::withMessages($error),
+        $failRows
+       );
+    }
+
+1.9..in class add
+class ProductImport implements ToModel,WithHeadingRow,WithValidation
+ use Importable;
+    private $row_number=1;
+1.10..go to controller and create function 
+public function uploadFile()
+{
+	Excel::import(new ProductDetailImport, $request->file('file'));
+	session()->flash('done', '__('Product Details Was Uploaded')');
+}
+1.11..make update in image in productDetails table to be nullable
+php artisan make:migration add_null_to_image_in_product_details --table=product_details 
+ 1.12..go to table and add it
+$table->string('image')->nullable()->change();
+1.13..migrate
+php artisan migrate
+1.14..upload images by command
+.....end this part at...v10..1.20.00.....

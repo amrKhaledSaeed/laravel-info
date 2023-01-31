@@ -1,0 +1,28 @@
+1..in laravel9 the project when insstall it add the laravel sunctum to 
+handell authentecation
+2..and create table personal_access_tokens to save token in it to 
+chance to user login from more one device 
+2.1..in personal_access_token
+morphs type: is tow coulmn tokenID and tokenType to use more one moddel
+like user and admin
+2.2name: to save token NAme like deviceName to save device name that logain
+2.3..abilities: is previlidge like the previlidege that asked from you
+when you install application in your mopile
+2.4..last_used_at date of the last time use this token 
+
+3..sunctum configration in config->sanctumphp
+3.1..gured:you can add the auth that want like user annd admin
+3.2..expiration: to define the time that token will be expired
+4..to use generate toen for user must be add use HasApiTokens in 
+model User->class
+and add after namespace use laravel\sanctum\HasApiToken;
+5..$deviceName=$request->post('deviceNAme',$request->userAgent());
+//to define device name
+//post('key:the defalt',if key not found will use the your variable here);
+//user agent try to informatio of user by brouser
+6..in HasApiToken traite that in user model have tokens()
+//you can use it to get token
+6.1..currentAccessToken:return the auth Token
+6.2..PersonalAccessToken::findToken($token);
+to find the access token from db 
+

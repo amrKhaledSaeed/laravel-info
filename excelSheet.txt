@@ -1,0 +1,84 @@
+......v9...0.30..
+1..document of excel
+https://docs.laravel-excel.com/3.1/getting-started/installation.html
+2..to install laravel excel sheet 
+composer require maatwebsite/excel
+3..go to config.app->providers and add
+ Maatwebsite\Excel\ExcelServiceProvider::class,
+4..go to aliases and add
+ 'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+5..publish the vendor
+php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider" --tag=config
+6..in config the excel.php will created
+7..if have error 
+7.1..install this
+composer require phpoffice/phpspreadsheet
+7.2..
+Go to php.ini file in C:\xampp\php
+Search this ;extension=gd
+Remove ; then restart the xampp
+Add "maatwebsite/excel": "^3.0" to "require" in composer.json file
+Run composer update maatwebsite/excel
+8..creat import of excel cheet that tack excel sheet as collage all file as one time
+//will save in DB all shhet else error row will ignor it
+php artisan make:import CategoryImport 
+8.1..will created in app\imports\
+8.2..another  way to make import excel sheet that tack excel sheet as on row by one row
+//this will tack one row if it validate will save it in ram and go to next else will delete all row from ram
+php artisan make:import CategoryImport2 --model=Category
+8.3..add function import in controller and make new opject from import class your created
+ public function uploadProduct($request)
+    {
+        Excel::import(new ProductImport);// Excel alies from faced, productImport the class import your created
+
+    }
+8.4..go to import class and add WithHeadingRow in implement
+class ProductImport implements ToModel,WithHeadingRow
+9..to add validation of excel sheet 
+9.1.. add WithValidationin implementation 
+go to row validation in document
+class ProductImport implements ToModel,WithHeadingRow,WithValidation
+9.2..add validation in model so must be static 
+ public static function sheetRules()
+    {
+        return [
+            'name_ar' => 'required',
+            'name_en' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+            'sub_category_id' => 'required|exists:sub_categories,id',
+        ];
+    }
+10..custom validation : is besenes validation 
+10.1..add function fail in import file
+ public function fail($key,$error,$row)
+    {
+        $failRows[]=new Failure($this->row_number,$key,$error,$row);//$this->row_number:the class it selfe; $key: like name_ar; $error: body of error; $row: nu
+       throw new \Maatwebsite\Excel\Validators\ValidationException(
+        \Illuminate\Validation\ValidationException::withMessages($error),
+        $failRows
+       );
+    }
+10.2..add this in class
+ private $row_number=1;
+1.3..use fail function in your function
+  $this->row_number++;
+        if($row['price']<100)
+        {
+            $error = ['price' => 'the price less than 100'];
+            $res= $this->fail('price',$error,$row);
+        }
+11..to update product data from sheet 
+11.1..the sheet must be have product_id
+11.2..create import 
+php artisan make:import productUpdateImport --model=Product
+11.3..put function fail
+11.4..put this and import his classes
+class productUpdateImport implements ToModel,WithHeadingRow,WithValidation
+{
+    use Importable;
+    private $row_number=0;
+11.5..tack functio rules
+11.5.1..go to model to update your rules in model
+11.5.2..change upload page to add routes 
+

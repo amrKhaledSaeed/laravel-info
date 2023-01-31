@@ -1,0 +1,6 @@
+error of migrate:specified key was too long
+solve:go to providers->AppservicesProvider->public function boot(){
+Schema::defaultStringLength(199);
+}
+and add
+ use Illuminate\Support\Schema;

@@ -1,0 +1,172 @@
+https://www.youtube.com/watch?v=_lNK5JbvrPA&list=PLebww9DYmRqO5P57v2Sr3zFOBeaWCj8If&index=2
+//play list of laravel database relationsheps
+.....................v2.....
+1..in one to many relationship in model that one 
+1.1..in this case the relationship between user tabel and profile table
+the user has one profile and the profile has one user
+1.2..in model user that have one profil
+public function profile(){
+	return $this->hasOne(ProfileModel::Class);//the each user has one profile
+}
+1.2.1..if i want put forginkey name i will add 
+public function profile(){
+	return $this->hasOne(ProfileModel::Class,'forignkeyName','primarykeyName');//the each user has one profile
+}
+1.3..if i want call userProfile 
+$user = \App\User::findOrFail($id);
+$user->profile;//will get user profile only
+1.4..if i not have relation ships
+1.4.1.. i will create relation in controller
+$user = \App\User::findOrFail($id);
+$user->profile()->updateOrCreate([user_id => $user->id], ['mobile' =>'0128389']);
+//her i use profile as a function no opject and update if user_id = $user->id exist else create and the same in mopile; he create relation by take model name and add in ti _id so will be user_id 
+1.5..now will make relation from profile
+1.5.1..in profile model create relation will use belongsTo becase we hase user_id that i can search by it
+public function user(){
+	return $this->belongTo(User::class);
+}
+1.5.2..in controller i cango to get user data by use profile model
+$profile=\App\Profile::findOrFaill($id);
+$profile->user;//user relation function name
+..................................v3...
+1..will check what hapend if we use elquent relationships
+1.1..will use to check 
+https://github.com/barryvdh/laravel-debugbar
+1.2..install backage
+composer require barryvdh/laravel-debugbar --dev
+1.3..publish config file
+php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
+1.4..to use debuger to check query request and memory usage
+$user=User::all();
+Debuger::info($user);
+must be return view
+1.5..the better call is
+users=User::with('profile')->get(); //profile if relation name;
+Debuger::info($users);
+foreach($user as $user)
+{
+	Debuger::info($user->profile);//to get all user profile
+}
+.................................v4.............
+1..one to meny user and posts
+2..in model user create relation
+public function posts()
+{
+	return $this->hasmany(posts::class,'forignKeyNAme','userPrimeryKey');
+}
+3..whrn call must be use foeach becase it collaction
+$users = User::findOrFail('id');
+foreach($users->posts as $user)
+{
+	debugpar::info($user);
+}
+4..in posts model
+public function users()
+{
+	return $this->belongsTo(User::class);
+}
+5..to get userPosts
+$posts = Post::findORFail('id');
+debugpar::info($posts->user);
+...............................v5..........
+1..meny to meny post and category
+2..create table caled categoryPost
+3..add coulmn post_id and category_id
+4..create relationships
+$table->foreign('categoy_id')references('id')->on('categories')->onDelete('cascade');
+5..in category model
+public function posts()
+{
+	return $this->belongsToMany(Post::class);
+}
+
+6..in postsmodel
+public function categories()
+{
+	return $this->belongsToMany(category::class);
+}
+7..to get data 
+$categories= Category::with('posts')->get();
+foreach($categories as $category)
+{
+	$category->posts()->attatch([1,2,3]); //to add the postes 1, 2, 3 of each category in categoryPostsTable 
+	$category->posts()->detatch([1,2,3]); //to add the postes 1, 2, 3 of each category in categoryPostsTable
+	$category->posts()->sync([1,2,3]); //to add the postes 1, 2, 3 of each category in categoryPostsTable or delete any posts found else 1,2,3 with each category
+
+ 
+}
+.....................................v6..morph relation.......
+1..morph relation ship
+1.1..i have 3 table posts comment users and i have photosTable that have all photos for 3 tables and i have colmn can desticsh between 3 table by maodel
+2..in photos migration use helper called morphes and give it name is photable 
+$table=morphes('photable'); // morph will create two faildes in table first failed called photable type and secaned called photableID
+//photable_type:has type of model
+//photable_id:has id of parent may be id of comment or posts
+$table=string('src'); 
+$table=string('type');
+3..in photo model put
+function photable()
+{
+	return $this->morphTo();
+}
+4..in post model add and user and each model that will use photo
+public function photos()
+{
+ retur $this->morphMany(photo::class,'photable'); // photable: is function name that in photo model
+}
+5..photoble_type : insert in it App\Moddels\Post
+5.1..photoble_id : insert in it id of post
+6..get phoot of post
+$posts = Post::findORFail('id');
+debugpar::info($posts->photos);//photo is function name of relationships in post model
+7..in posts crate function to define that this photo to cover post 
+public function civer()
+{
+	return $this->photos()->where('type','cover'); //photos:function created to get photoin the same model
+}
+8..create 
+$posts = Post::findORFail('id');
+$posts->photos()->create([
+'src' => 'any sorce',
+'type' => 'cover',
+//photable_type and photable_id will created outmatecly
+//if you want get //$post->cover; or if i want all photo of post $post ->photo;
+]);
+........................v7..has many through...
+1..ha many through: we have three table user and posts and country, user has relation withe posts and country if i want posts that relation with country i will get py user that it in country and get posts for this users
+2..create country model and create function posts
+return $this->HasManyTrough(Posts::class,User:class);//posts the data i want, user the table that has relation between posts and category when the gategory not have relation with posts
+3.. to get
+$country=Country::findOrFail('id');
+$country->posts;//posts: is function in country model
+// to create posts 
+$country->posts()->create([
+'user_id' => anyId //is must becase i in country and create post so not have relation and not know witch user for it
+'columnName' => ' value '
+]);
+............................v8...query by rellationship....
+1..get all user that have posts
+User::whereHas('posts')->get();//posts: is relation function
+2..get user not has posts
+User::doesntHave('posts')->get();//posts: is relation function
+3..i want get user that have post but in condetion
+3.1..get all user where have posts where post_id 1,2
+$users=User::wereHas('posts',function($query){       //$query: to posts
+	$quesry->where In('id',[1,2]);
+})->get();   
+3.2..i will get user that have posts or photos or has poth
+$users=User::has('posts')->orhas('photos')->get(); 
+3.3..i will get user that have posts or photos or has poth
+$posts = true;
+$photo = true;
+$users = User::where(function($quesry) use ($posts,$photos){ //$queru :is user // use ($posts,$photos):to see this variable i can use this or gloable variable
+global $posts; //must be to the function see this variable or use use after function like this
+gloable photo;
+if($posts)	
+	$uesry->orwhereHas('posts'); 
+if($photo)
+	$query->orwhereHas('photos',function($q){
+	
+	$q->where('type','photo ')
+});
+})->get();

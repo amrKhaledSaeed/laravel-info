@@ -1,0 +1,25 @@
+https://www.youtube.com/watch?v=EyLW35SUVDE
+//video events
+1..create events
+php artisan make:event eventName
+2..create listener to listen to event
+php artisan make:listener listenerName --event="eventName"
+3..go to app/providers/EventServicesProvider.php->$listen
+eventName::class=>[listenName::class]
+4..go to event add
+use App\modelName
+4.1..go to event->class add
+public $modelName; 
+42..go to event->constructor add
+ public function __constructmodelName $post);
+
+4..go to app/listener/listenerName->handel
+ var_dump('Post '.$event->post->id);//this examble $event: opject fromm class event
+ die();//to stop code
+//here you can send mailverification or execute any code 
+5..controller
+ public function destroy(Post $post)
+    {
+        $post->delete();
+        event(new eventName($post));
+    }

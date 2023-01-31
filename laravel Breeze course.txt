@@ -1,0 +1,12 @@
+..................laravel Breeze course................
+1..install breez from document of laravel
+1.1..from getting started->starter Kits->laravel Breeze->installation
+2.rout->auth.php
+2.1..have two group
+2.1.1..middleware('gest'):the route in thes group that the user not auth
+2.1.2..middleware('auth'):the route in thes group that the user auth
+3..app->http->controllers->Auth->allcontroller for register and login and verfaypassword..etc
+4..app->http->controllers->Auth->registrationController
+4.1..function create
+go to resources->views->auth->rigister
+5..app->Request->Auth:to validation

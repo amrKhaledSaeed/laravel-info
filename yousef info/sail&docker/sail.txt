@@ -1,0 +1,89 @@
+https://www.youtube.com/watch?v=2ofTYPic3FE&t=61s
+the vedio for sail
+https://laravel.com/docs/8.x/sail#installing-sail-into-existing-applications
+the documentation for this cource
+1..go to in this link to install wsl in windwos
+https://learn.microsoft.com/en-us/windows/wsl/install
+2..open powershall as admenstrator
+2.1..install wsl past it in powershall
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+2.2..enable vertial machine
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+2.3..download for wsl from step 4 from this link
+https://learn.microsoft.com/en-us/windows/wsl/install-manual
+2.4..install wsl
+3..open cmd
+3.1..past this command
+wsl --set-default-version 2
+3.2..chose uponto 22 from this link step 6 and dwonload this
+https://learn.microsoft.com/en-us/windows/wsl/install-manual
+3.2.1..installation uponto must be save user name becase you will use it in suodo
+3.2.2..write user name and password and save it //password enter it two times
+3.2.3..now you work linix in windows
+3.2.4..if you want open uponto open pwoershall and click newtab chois uponto
+4..install doker desctop and restart pc after insatall is must 
+5..go to laravel sail document
+https://laravel.com/docs/8.x/sail#installing-sail-into-existing-applications
+5.1..in uponto write
+5.1.1..curl -s https://laravel.build/yourProjectName | bash
+5.1.2..write uponto user Name
+5.1.3..copy the command to run server and past the command that you capy is cd projectName && ./vendor/bin/sail up
+5.1.4..command to check what happend
+ls
+6..to open your project got to brouser and write
+localhost
+7..to get your project folder got to serach folder and write
+\\wsl$
+7.1..in uponto/home/upontoUserName/projectName/and open by your edetor
+8..to migrate DB
+sail artisan migrate
+9..if you want install npm
+sail npm install
+10..npm run dev
+sail npm run dev
+10.1...documentation is 
+https://laravel.com/docs/9.x/sail
+11..make controller
+sail artisan make:controller TestController
+12..to run server
+./vendor/bin/sail up
+12.1..to run server but you can use terminal
+./vendor/bin/sail up -d
+12.2..to stop server 
+./vendor/bin/sail down 
+13..if you want minimies the terminal code
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+13.1..run server
+sail up
+13.2..stop server
+sail down
+14..in docker.compose i can chang mysql to any db
+15..to open tanker
+sail tanker
+15.1..create user debended on your user model
+User::create(['name' => 'anyNAme', 'password' => 'anyPassword', 'email' => 'anyEmail'])
+16..if you want change your php version
+16.1.. go to docker.compose->context
+change number of version
+16.2..then run this command
+sail build --no-cache
+17..to customize of docker run this command //will creat folder called docker and copy vendor/laravel/sail/runtimes and put it inside doker folder
+sail artisan sal:publish
+17.1..this open folder doker and you can change any things 
+17.2..after any changes in doker files run tiscommand
+sail builed --no-cache
+...........................
+1..error: port error /or if you want create project in same folder copy and past n .env and change thes numbers with each project .env
+
+APP_PORT=58080
+FORWARD_DB_PORT=53306
+FORWARD_REDIS_PORT=56379
+FORWARD_MEILISEARCH_PORT=57700
+FORWARD_MAILHOG_PORT=51025
+FORWARD_MAILHOG_DASHBOARD_PORT=58025
+2..use this
+bash ./vendor/laravel/sail/bin/sail up
+3..stop all docker image else your project image
+........................
+uponto userName: amr
+password: 159357

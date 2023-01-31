@@ -1,0 +1,8 @@
+1..facebook sdk: to mack login by facebook
+2..observer : in DB if i want use function not cascade
+3..reabet mq
+4..Docker
+5..problem solving
+6..custom validation : to check data ar or en
+7..upload zib file
+8..github

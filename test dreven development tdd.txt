@@ -1,0 +1,57 @@
+.........test derven development course............
+.........Doker...............
+Doker: 
+1..open sorce aplication
+2..application stand alon //setup on itselfe mean not dependantncey
+3..engin..//use as a moharek to run application inside the container
+..............
+1..infrastructure: may be server or deskatop and device you work it
+2..in infrastructure you have os
+3..in os you can have a doker to manage alot of application
+4..so in application work in acontainer work isolated of any allication work
+in another container like it work in a os indevidual
+5..Doker: is a container management service
+..........
+1..container: is apart of software have package and dependencies 
+that the apllication will run it need
+2..container package//mean cover of all every thig needed to run the
+application like code lipprarys runtime inviroment
+and configratin in image
+...................................................................
+1.layer of tdd 
+1.1..data layer:the DB test so moddle test
+1.2..accessLayer: auth othorize policeis
+1.3..presentation layer: blade
+2..$this->withoutExceptionHandling(); //laravel create handel for error to hidden the all error to user ;this function return all error to developer to solve it
+....................TDD............
+1..api resources:will help us to create sclable apis
+1.1..and TDD
+1.2..verify the code
+2.bdd:stands behavioral driven developmen
+3..to create test
+php artisan make:test Http\Controllers\Api\AuthControllerTest
+4..run this comand that have vendor access and test file path and this artisan run test
+./vendor/bin/phpunit tests/Feature/Http/Controllers/Api/AuthControllerTest.php
+5..production code:the code that in server and the user see it
+6..$response->assertJson('key in your accualProduct'=>'value in your actual product');
+7..$this->assertDatabaseCount('tableNAme','count');
+//function to count number of row in table
+8..use RefreshDatabase;
+//trait to run tranacton on DB so is do migrate for all DB before each functon and rolback after function to still DB as asam without and chanege
+ 9..to install ide_helper to help you of code class place
+composer require --dev barryvdh/laravel-ide-helper
+10..to crete factory 
+php artisan make:factory ServicesFactory --model=WorkShopServices 
+10.1..app\database\factor\ServicesFactory
+
+....................................................error and handel..................
+1..$this->withoutExceptionHandling
+//to get all error without handeling
+2..error:not found HttpException: post
+//mean not have route 
+3..
+.........................................................course 2
+1..instal extentian called better PHPUNIT
+2..
+
+

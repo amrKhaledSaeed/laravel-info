@@ -1,0 +1,15 @@
+https://www.youtube.com/watch?v=LeEU5vuLej4
+1.vedio for resource collection
+1.1..we can use resourceCollection to can return data that call as relational
+2..to create resourceCollection
+php artisan make:resource PostCollection
+3..in repository or controller
+3.1..if you use normal resource you can call resource like this put this is not beast way
+ $data =PostResources::collection($user);
+3.2..if you use resourceCollection use it
+ $data = new PostCollection($user);
+3.3..in resourceCollection 
+3.3.1..to call all data you can use it 
+ return [
+            'data' => $this->collection
+        ];

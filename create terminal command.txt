@@ -1,0 +1,67 @@
+..............v7..from..2.00...to...2.19
+.......create command
+5..create command to make register by terminal
+php artisan make:command commandName
+5.1.go to app\console\commands\commandName->signature : her will write the command that make command run
+ protected $signature = 'project:start';
+5.2.go to app\console\commands\commandName->$description : her will write decription 
+ protected $description = 'to start project in devMode';
+5.3..crate RolesSeed
+php artisan make:seeder RolesSeed
+5.3.1..go to Database\seeders\SeedName->run()
+   $roles=['admin','user'];
+        foreach($roles as $role)
+        {
+            Role::create([
+                'name' => $role,
+            ]);
+        }
+5.3.2..go to Model Role make 
+protected $fillable= ['name'];
+5.4..go to app\console\commands>handel() :her will write all you want run
+ Artisan::call('migrate:fresh');//Artisan:call all artisan command;call():call like php artisan;call('her any command after artisan')
+$this->info('data base was updated');//to print message in terminal
+ $name=$this->ask('your admin name ');//to aske user name in terminal
+       if(empty($name))
+       {
+        $this->info('the name is Empty');
+        $this->ask('Enter Valid Name');
+      }
+      $email=$this->ask('your admin email ');//to aske user email in terminal
+       if(empty($email))
+       {
+        $this->info('the email is Empty');
+        $this->ask('Enter Valid email');
+       }
+
+       $phone=$this->ask('your admin phone ');//to aske user email in terminal
+       if(empty($email))
+       {
+        $this->info('the phone is Empty');
+        $this->ask('Enter Valid phone');
+       }
+
+       $password=$this->secret('your admin password ');//to aske user password in terminal ; secret to hiddent input
+        if(empty($password))
+            {
+                $this->info('the password is Empty');
+                $this->ask('Enter Valid password');
+            }
+
+            Artisan::call('db:seed --class="RolesSeed" ');// create seeder when class called RolesSeed
+           $user = User::create([
+                'name' => $name,
+                'email' =>$email,
+                'phone' =>$phone,
+                'password' =>Hash::make($password),
+                ]);
+                $role=Role::where('name','admin')->first();
+
+                UserRole::create([
+                'user_id' => $user->id,
+                'role_id' => $role->id,
+                ]);
+
+         $this->info('this acount was created you can login to dashpoard by this linke'.route('admin.login'));
+    }
+......end command

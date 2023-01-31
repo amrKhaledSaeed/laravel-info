@@ -1,0 +1,215 @@
+************resetfull api course inforamtion*****
+https://www.youtube.com/watch?v=CHWb2rbtkRU&list=PLYVcyg3AF-zvDDXBLDyn9UJSgAYMWpUS3&index=3
+**playList Link
+1..php artisan make:model modelName mf
+//m: to create migration f to create factory
+2..php artisan make:controller controllerName -r
+//-r:this controller is type name is resources to create crud function 
+with controller
+3..in apiRoute
+3.1..use prifixe v1:version of api
+4..controller 
+4.1..not send all data in table 
+4.2..not send data by same name of table coloumn becase of haker
+//mean not leave your schema exposed/:any person can show it
+4.3..meta data not allawed
+4.3.1..to solve this return as this case
+return response()->json(
+[
+   'keyName'=>$Data,
+   'keyName'=>$anotherData
+],200);
+//200 if return succes
+5stutes=200:if api success
+6..function to send data in spasific ID
+public functio functionName($id){
+return respons()->json(ModelName::find($id),200);
+}
+7..api statuse
+200 ok or succes
+201 created
+202 Accepted
+203 non-authoritative information
+204 no connect
+205 Reset Content
+206 partial Content
+302 found 
+303 see other
+304 not modified
+307 temporary redirect
+308 permanent redirect
+400 bad request
+401 unauthorized
+402 payment required
+403 forbidden
+404 not found
+405 method not allowed
+406 not acceptable
+408 request tim out
+500 internet server error
+501 not implemented
+502 bad getway
+503 server unavailable
+504 getway time out
+505 http versopn not suborted
+8..in model if i make this
+public $timestamps=false;
+//we not use defalt time stamp
+9..function to create row from request have all paramter of coulmn
+public function functionName(Request $request){
+$rouls=[
+'name' =>  'required|min:3|max:254',
+];
+$validator=Validator::make($request->all(),$rules);
+if($validator->fails()){
+return respons->json($validator->errorss(),400);//400:mean validate error
+//this will be validate error message
+}
+$create=modelNAme::create($request->all());
+return respons()->json($create,201);//201:mean created
+10..function to update all the route will be put
+public function functionNAme(Request $request,$id){
+$variableName=ModelName::update($request->all());
+if(is_null($variableMdel)){
+return respons()->json(["message"=>"record not found!"],404)
+}
+return response()->json($variableNAme,200); 
+}
+}
+11..function to delet that has route::delet
+public function functioName(Request $request,modelName $modelVariable)
+$modelVariable->delete();
+return respons()->json(null,204); //no connect
+12..function to get element py id
+public function functionName($id){
+$modelVariable=modelName::find($id);
+if(is_null($modelVarable)){
+return respons()->json(["message"=>"record not found!"], 404);
+}
+return respons()->json($modelVariable,200);
+}
+.............#validation video5...............
+1..use validator;
+............#token Authentication vedio 7........................
+1..to create authentication
+1.1..in terminal write it
+php artisan make:auth //this will create login and register link
+php artisan migrate //to create DB
+1.2..in env will show that and add 
+ 1.2.1...to create PUSHER_APP_KEY
+1.2.1.1..intermenal add 
+1.2.1.1.1..create middleware
+php artisan make:middleware AuthKey
+1.2.1.1.2..go to app->http->midleware->AuthKey->function handel
+$token=$request->header('PUSHER_APP_KEY');
+if($token !='your APP_KEY value any you write'){
+return response()->json(['message'=>'App Key not found'],401);
+//401 mean unAuthorize
+}
+1.2.1.1.3..go to kernel->'api'=>[  //and add this
+\App\Http\Middleware\AuthKey::class,
+1.2.1.1.3..so if you want reun your app you mast add in posMan->header
+key->APP_KEY        value->your APP_KEY value
+.........................#basic Authentication video8....................
+1..make middleware 
+php artisan make:middleware AuthBasic 
+2..go to app->http->middleware->AuthBasic->function handel
+use Illuminate\Support\Facades\Auth;
+if(Auth::onceBasic()){ //onceBasic :is http basic authentication system
+//without setting a user identifire cookie in the session so her the user
+// is no authenticate
+//cookie :is sessions are stored in secure, encrypted cookies.
+return response()->json(['message' => 'Auth failed'])
+}eles{
+return $next($request);
+}
+3..go to kernal->'api' => [   and add
+\App\Http\Middleware\AuthBasic::class,
+4..go to postman->Authorization->type->Basic Auth
+enter userName and password
+.....................#OAuth2 video 9............
+1..oAuth:is an open-standard authorization porotocol or framework
+2..outh: doesent share password data but indtead uses authorization tokens
+to prove an identity between consumers and services providers
+3..outh:log  into your website with other website login
+3.1..user visite the website
+3.2join using any of these service providers like facebook or gmail
+3.3..you are redirect to the selected sevices providres
+3.4..if send with gmail service provider you can approve
+3.5.. tack this token with you that you take is from gmail after approved
+3.6..youer permisson in this token
+3.7..you can go back to your website they have permission to use their request token
+..................#OAuth2 setup Passport  video 10..........
+passport: provides a full OAuth2 server implementation for your laravel application
+passport document:in laravel document->package->passport
+1..install Passport liprary
+1.1..in terminal
+1.1.1..composer require paragonie/random_compat=~2.0 //2.0 to update the vesion of composer
+//run this command if you have laravel 5 to update your composer version
+ 1.1.2..composer reequire laravel/passport=~4.0//~4.0 the version of passport
+1.2..php artisan migrate
+1.3..php artisan passport:install
+1.3.1..if error:ther are no command defined in the "passport" namespace
+1.3.1.1..solve:go to config->app.php->'providers'=>[
+Laravel\Passpport\PassportServiceProvider::class,
+1.3.1.3..and rewrite on terminal
+php artisan passport:install
+1.2..go to user model and add
+1.2.1..use Laravel\Passport\HasApiTokens;
+1.2.2..in user model->class User add
+use HasApiTokens;
+1.3..go to Providers->AuthServiceProvider add
+1.3.1..use Laravel\Passport\Passport;
+1.3.2.go to Providers->AuthServiceProvider->function boot add
+Passport::routes();
+$startTime = date("Y-m-d h:i:s");
+sendTime = date("Y-m-d h:i:s",str('+7 day +1 +30 minutes +45 second',strtotime($startTime)));
+$expTime= \DateTime::createFromFormate("Y-m-d H:i:s",$sendTime);
+Passport::tokenExpireIn($expTime);
+1.4..go to config->auth->'api'=>[ 'deriver' => 'token'
+1.4.1..convert 'token' to 'passport' 
+...........................OAuth2 implementation video 11......
+will ues api of Basic Auth
+1..in web rout
+1.1..Rout::group(['middleware' => 'auth:api'],function(){
+//to use passport auth
+});
+2..create client in terminal
+2.1..php artisan passport:client
+2.1.1...enter user id
+2.1.2...enter client Name
+2.1.3..enter the url will redirect after has token accept
+2.1.4you will opptain client ID and client secret
+2.1.5..php artisan serve
+3..go to postman
+3.1..click preview to see login page
+3.2..we will get this access token by accessing this route
+domainName/oauth/token  and post method
+3.3 click body->form-data
+key->grant_type    value->client_credentials
+key->client_id     value->the client ID your created
+key->client_secret value->the client_secret you optain that
+3.4..click send
+3.5..will optain of
+3.5.1..token_type
+3.5.2..expires_in
+3.5.3..access_token //copy this and go to terminal
+4..in terminal
+4.1...create another client 
+4.2..copy client secret
+4.3..php artisan serve
+5..go to the postman in login url
+5.1.. headers
+5.1.1..key->Accept   value->application/json
+5.1.2..key->Authorization  value->token_type spaceand access_token
+6..another way to access the data
+6.1..Authorization
+6.2..type->token_type
+6.2.1..past the token then send
+****************************************
+7.document to create registration and login and logout api
+https://www.toptal.com/laravel/passport-tutorial-auth-user-access
+8.to create forget password api in this videw
+https://www.youtube.com/watch?v=Wecz-R6M-dk
+
+

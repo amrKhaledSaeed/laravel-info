@@ -1,0 +1,85 @@
+1..larvel:fullstake freamwork mean to implement all mvc in laravel invairoment 
+2..if you want framwork to api only you can use slime framework or limon framwork
+3..composer:is package manager to manage and contain all package if it public or private backage...........................1
+4..https:haiber text transpher protcol, to manage connection between me and server, s:refrence to secure 
+5..bootstrap:execute application
+6..config :to mack configration of app for handel api and chat on time......................................................2
+7..public->index:start of projecte..........................................................................................3
+8..storage:have loges and user may be save in storage and have test.........................................................4
+9..test:to run test any featchar ,
+10..vendor:to save all file of plugins......................................................................................5
+11.env:enviroment that controle for all eviroment of app
+12..env->DB_port:3306 for windwos,3307 for linix............................................................................6
+13..composer.json:data for all pacage.......................................................................................7
+14..composer.json->require:is must to be in project if ypu in local or server
+15..composer.json->require-dive:package to yourselfe when develop only......................................................8
+16.providers:is the must execute when application running...................................................................9 
+17..providers->RoutServicesProvider:have the extention of rout if api Rout folder extention or web rout folder extention....10
+18..static function:Static methods can be called directly - without creating an instance of the class first.................11
+Static methods are declared with the static keyword
+19..To access a static method use the class name, double colon (::), and the method name....................................12
+20..migration table->function up:to design table creation
+21..migration table->down:to write code that excute when table delete
+22..model name:must be single but migration name muste be plural
+23..mysql:is indexed Database:mean each table must be have id coulumn
+24..$table->id():mean bigInteger and unassign and primary key and auto incremanted
+25..table->timestambe:is created_at and updated_at
+26..table->string:isa varchar
+27..if you make coulmn unique in DB you must make unique validation in it becuase the DB don't send any exption for user
+28..{{}}:mean echo
+29..blaed:is connection design between backend and frontend 
+30..usnsign:mean no start from 0 no negative number,and give all size of integer positive only the 4maliar
+31..integer:have siz around 4 maliar 2maliar positive and 2maliar  nagative
+32..auto incriment:=indexed
+33.forignkey:must be 
+33.1...biginteger like primary key
+33.2..unsigned
+34..forign key may be null 
+35..solid->single responsaplity:mean your class must be not execute more thane one resposaplity and your function not must more than
+one responsaplity
+36..host bandwidth: how number of request the server can be handel in same time
+36.1..bdos attake:send alot of bandwidth capacety request to website to drob down website
+36.2..save my web from dos attack by hanny bool method:we was open time after bage open and calculate time of compleate form if this time is logic ok if not expired it
+36.3..save my web from dos attack by method that laravel uses it:creat hidden token to user want use form at any time want use form 
+make it by @csrf after <form>
+37..hostinger/statistics->desc usage:like hard that you store in hostinger
+37.1 so in beeter don't store image in thes desk
+38..not use model at every time in one controller you can 
+39..to inhance code if you want find spascefic id every time more than one function you can mack trait that return thes id in function
+and use this trait in controller and call this function that in trait by $this but you can mack this if this find as the same at all
+40..in many to many or one to many:if youe wright function in moddel that has primery key you will use has ,
+if you in model that has a forign key you is invers use belongsTo()
+41..if you make validation for column have the references to another table must you check it existes:tableName,coulmnThat references of it
+42..seeder: use to generate data and make backup of your data
+43..<:mean import ;>:mean export
+44..kernal:have register of all routes of middleware
+45...https://www.itsolutionstuff.com/post/laravel-automatic-daily-database-backup-tutorialexample.html
+//explain how to mack dailey backup
+46..provider: to make map for all project
+..........v5........
+1..you can use larastan to check your code clean or not
+1....solid..
+1..s : single responsapility
+1.1..the function or end point make one singes only mean execute one only
+1.2..function can execute mor than one one but the code out of function
+2..open close prinsables like vendor and interface
+2.1..open: open for use 
+2.2..closed: closed for implementation
+3..
+4..interface 
+4.1..use interface like repository interfaces
+5..dependancey interfaces
+5.1..interface make dependancey becase controller cant call from repository directely but must be go to interface  first
+6..threads
+6.1.. to teste fast of threds in web you can use this githap
+https://github.com/wg/wrk
+6.2..in termenal write this
+wrk -t12 -c400 webUrl
+//t:number of threds , c:number of user 
+7..creat store project and ERD
+8..in erd langauge
+8.1..create table called lang that have en and ar and any lang
+8.2..create table called anysung want translated have product_id lang_id value
+9..in DB must be not put null column to ignoer that you can use another table if thes column will be null the null will be make run time low
+
+......end v5 2.5

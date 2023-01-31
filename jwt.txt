@@ -1,0 +1,5 @@
+https://www.youtube.com/watch?v=oR1ySRbUxRw&list=PLQcBFrxTul9J8t4qFs6g9HNXwKDTGWlRg&index=6
+//playlist of jwt cources
+2..link of documentation of jwt
+https://jwt-auth.readthedocs.io/en/develop/laravel-installation/
+

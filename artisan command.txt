@@ -1,0 +1,9 @@
+...artisan command line 
+1.php artisan make:model modelName -m
+.....to create model and migration for tis model
+2.php artisan migrate
+..to create all table and if table exist still as same not update any update you do and create any table new
+3.php artisan migrate fresh
+....to delete any table created and create from start
+4..php artisan db:seed class="className"
+//to run seeder class

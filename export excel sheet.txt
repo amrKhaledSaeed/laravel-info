@@ -1,0 +1,31 @@
+https://www.youtube.com/watch?v=ZwA7MeuQRik
+...export excel sheet....
+1..export create file
+php artisan make:export exportFileNAme
+................................this has error..............
+2..go to exportFile and add this interfaces //this has error
+class exportFileName implements FromView, ShouldAutoSize
+{
+	use Exportable
+ 	public function():View
+	{
+	   return view('viewPAge');
+	}
+
+}
+.......................................
+2.1.......solve error by..............
+ public function collection()
+    {
+
+        $data=['rowName'=>['product_id','size_id','color_id', 'img', 'stock'] ]; //must be array of array to return it in collection
+        return collect($data);// must be use collect function to return it
+    }
+.................................................end solve...........
+3..use 
+Illuminate\contracts\View\View;
+4..go to controller add function to return
+public function exportExcel()
+{
+	return Excel::download(new ExportClassYouCreated, 'fileName will be downloaded.xlsx');
+}

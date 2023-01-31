@@ -1,0 +1,4 @@
+...............searsh......
+1.laravel polices
+2..how to best make any thing in laravel
+3..https://etharshrouf.com/ar/blog/bad-practise

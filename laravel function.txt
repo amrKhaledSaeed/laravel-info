@@ -1,0 +1,76 @@
+1..{{assets('file extention from public')}}  : function to enter public folder
+2..{{request()->segment(1)}}  :to echo segment one that after domain name in url
+2..<form enctype="multipart/form-data">: use if in form if my form have image or any thenk else data 
+3..$request->image->extension(): to get extension of image png or jpg
+4..time(): to get time
+5..$request->image->move(public_path('dAssets/images/chefs'),$imageName);//to upload dat
+7..modelName::create([
+'columnName'=>$request->inputName or $imageName
+]);//to insert in DB
+8.must you add in model $fillable=['coulmnName That the user can crud it'];
+9..$errors:belde in variable in laravel have all error 
+9.1..$errors->any() :to get any error 
+9.2..$errors->all():to get all errors
+10..session()->flash('session name','session content'):open session and ,flash():mack store for session and mack unset
+10.1..return redirect(route('route name that will be redirect to it '));
+10.2.. return back()->with('sessionNAme','session message');//return back with message that in session
+10.3..@if(Session::has('sessionName'));
+10.3..@if(Session::get('sessionName'));
+11..@method('DELETE'):on blade file,over ride of form methode from post to delete when form method is post
+11.1..Route::delete(); in web//use it whith delete function
+12..<input type="hidden" name="id" value="{{$chef->id}}">:if i put it in plud i can don't put id in route
+13.. $request->validate([
+        'id'=>'required|exists:chefs,id' //id:is input name,exists:check htis id in db or not,chefs:table name,id:is coulmn name
+       ]);
+14..route('chef.edite',[$chef->id];:route with id
+15..$request->has('image');//to check if request has this attrpute or not
+16..'image' =>($imageName)? $imageName : $chef->image //if $imageName exist put $iamgeName else put $chef->image
+17..empty()//function check is empty or not
+18..$chef->Update([]);//to update.$chef is variable have data from db
+19..dump();//like dd() but without stop code
+20..if i put @ before the variable will be escab any errors
+21. unlink(public_path($imageUrl));//function to delete image from her folder
+22..modelName::create(['coulmnNAme'=>value]);//to insert in table
+23..this is in model
+class Category extends Model
+{
+    use HasFactory;
+    protected $fillable=['name'];
+
+    public function items(){
+        return $this->hasMany(Item::class,'category_id','id');
+    }
+}//hasMany becase we in the main model that not have forign key
+use it to mack relation betwwn tcontroller
+wo table and if we want call it we can use this in 
+$data=category::with('items')->first();//items is model function
+24..in item moddel
+class Item extends Model
+{
+    use HasFactory;
+   protected $fillable=['name','description','price','category_id'];
+
+   public function category(){
+    return $this->belongsTo(category::class,'category_id','id');
+   }
+}//belong to becas we in model that have forign key
+25..return abort('404);
+26..$request->except([all request you wan ignor it]);
+27..ican use  ('requestNAme') without use Request in function
+28..Auth::attempt($userData)
+//attempt() has a credintial:email and password and it check the Data in DB and return tru or false
+29..$request->only('email','password')
+//to get specefic requestData 
+30..Hash::make('your password');
+//to hash password //attemp():can make passwored that geven to hash to compair requestpass with DBpassword
+31..Route::group(['prefix' => 'the first part in route url','middleware'=>[]],function{
+//all route
+}
+32..Session::flush();
+//to make session empty use in logOut function
+33..Auth::logout(); //to logOut
+34..model::get()->groupBuy('key');
+//group Buy to devidded the table as each column is index of array called assosiative array
+//each array inside the array will be called key->value.....v4.1.30
+
+

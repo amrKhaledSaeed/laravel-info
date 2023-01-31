@@ -1,0 +1,9 @@
+1..upload repo and create git command file
+2..create CURD api template function and Use validation
+3..create template token authenticate manual and write steps
+4..create basic Authenticateion middleware template 
+5..OAuth2 logic stabs
+6..passport se tup and write all steps 
+7..OUth2 implementation and write all steps
+8..meating with ahmed
+

@@ -1,0 +1,14 @@
+error1..
+. [InvalidArgumentException]
+  Could not find package laravel/laravel with version 8.0 in a version installable using your PHP version, PHP extens
+  ions and Composer version.
+..
+solve1..
+1.unstoulation composer and install it the verssion simeoulate of php verssion
+...........................................................................................
+error2..
+error 419
+...
+solve2..
+add @csrf under form
+..........................................................................................

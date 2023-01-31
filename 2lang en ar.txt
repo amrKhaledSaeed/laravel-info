@@ -1,0 +1,5 @@
+......to handel website to accespt to languge.........
+1.. in DB  table
+1.1..table that have evry sing and name the we want make user inter it in tow lang ara and en
+1.2..make another table that have all lang like ar and en or other
+1.3..make another table that have table that hae name id and lang id and the value in each lang

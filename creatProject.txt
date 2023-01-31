@@ -1,0 +1,7 @@
+1..busniss rouls
+2......................DB
+2.1..https://app.diagrams.net/
+this is web to drow ERD
+2.2..devide intety that not have any relation and drow it
+2.3..if you aske yourself intgrate between two table or make each one alone 
+ans make each table alone if you when call one table not need the data in the another table else put tow table in one table

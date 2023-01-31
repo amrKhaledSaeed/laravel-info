@@ -1,0 +1,123 @@
+....crate store project......
+........v4..1.00...
+1..create project
+composer create-project laravel/laravel projectName
+1.1..if you want create project in version 8
+composer create-project laravel/laravel:8.6.11 example-boilerplate --prefer-dist
+1.2..if you want install laravel Auth 
+1.2.1..go to in this link to install laravel ui from github
+https://github.com/laravel/ui
+1.2.2..install ui
+composer require laravel/ui
+1.2.3..to install forntent login and register
+php artisan ui bootstrap
+php artisan ui bootstrap --auth
+npm install
+npm run dev
+npm run dev
+1.3..if you want install jwt
+1.3.1..install jwt
+composer require tymon/jwt-auth 
+php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+php artisan jwt:secret
+1.3.2..
+2..create RepositoryServicesProvider
+...v6...
+4..go to this link to create ERD
+https://app.diagrams.net/?src=about#G1WPodizun6FSGeKZsID2j7V7mF2cR1P7u
+5..create DB
+2.1..create moddle with migration
+php artisan make: modelNAme -m
+2.2..write column in table
+3..use laravel localiation to translate **package
+https://github.com/mcamara/laravel-localization
+3.1..this backage save the translate in DB as json
+3.2..data type for column will be translated will be longText
+4..put frontend in public and resourse file
+.......create command
+5..create command to make register by terminal
+php artisan make:command commandName
+5.1.go to app\console\commands\commandName->signature : her will write the command that make command run
+ protected $signature = 'project:start';
+5.2.go to app\console\commands\commandName->$description : her will write decription 
+ protected $description = 'to start project in devMode';
+5.3..crate RolesSeed
+php artisan make:seeder RolesSeed
+5.3.1..go to Database\seeders\SeedName->run()
+   $roles=['admin','user'];
+        foreach($roles as $role)
+        {
+            Role::create([
+                'name' => $role,
+            ]);
+        }
+5.3.2..go to Model Role make 
+protected $fillable= ['name'];
+5.4..go to app\console\commands>handel() :her will write all you want run
+ Artisan::call('migrate:fresh');//Artisan:call all artisan command;call():call like php artisan;call('her any command after artisan')
+$this->info('data base was updated');//to print message in terminal
+ $name=$this->ask('your admin name ');//to aske user name in terminal
+       if(empty($name))
+       {
+        $this->info('the name is Empty');
+        $this->ask('Enter Valid Name');
+      }
+      $email=$this->ask('your admin email ');//to aske user email in terminal
+       if(empty($email))
+       {
+        $this->info('the email is Empty');
+        $this->ask('Enter Valid email');
+       }
+
+       $phone=$this->ask('your admin phone ');//to aske user email in terminal
+       if(empty($email))
+       {
+        $this->info('the phone is Empty');
+        $this->ask('Enter Valid phone');
+       }
+
+       $password=$this->secret('your admin password ');//to aske user password in terminal ; secret to hiddent input
+        if(empty($password))
+            {
+                $this->info('the password is Empty');
+                $this->ask('Enter Valid password');
+            }
+
+            Artisan::call('db:seed --class="RolesSeed" ');// create seeder when class called RolesSeed
+           $user = User::create([
+                'name' => $name,
+                'email' =>$email,
+                'phone' =>$phone,
+                'password' =>Hash::make($password),
+                ]);
+                $role=Role::where('name','admin')->first();
+
+                UserRole::create([
+                'user_id' => $user->id,
+                'role_id' => $role->id,
+                ]);
+
+         $this->info('this acount was created you can login to dashpoard by this linke'.route('admin.login'));
+    }
+......end command
+......start admin login v7..2.26...
+1..go to Auth controller
+1.1..create adminLogin function
+1.2..crete adminController
+php artisan make:controller adminController
+1.3..craete functio index that have home page in adminController
+....v8..
+....TDD..test deriven development
+1..create Rout::group in web
+Route::group(['prefix'=>'admin', 'middleware' => 'auth'],function(){
+
+    Route::get('/',[adminController::class,'index'])->name('admin.home');
+
+ });
+2..go to middleware hta called Authenticate.php and put redirect if login failed
+3..insert data in table that not create his controlers yet by seeder
+php atisan make:seeder CategoriesSeeder
+3.1..go to your seeder and insert data
+3.2..insert data in db 
+php artisan db:seed --class="CategoriesSeeder" 
+

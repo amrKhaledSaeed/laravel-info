@@ -1,0 +1,65 @@
+.........reposetory curd 
+https://tutspack.com/crud-example-with-repository-design-pattern-in-laravel/
+//steps her
+https://www.youtube.com/watch?v=d3QFfsbaaPc&t=1131s
+//the video that have explain that
+1..inter app->create folder called RepositoryInterface
+2..inter app->create folder called Repository
+3.. app->RepositoryInterface->create file interface called anyNameRepositoryInterface.php
+3.1..app->RepositoryInterface->anyNameRepositoryInterface.php
+<?php
+
+namespace App\RepositoryInterface;
+
+interface anyNAmeRepositoryInterface{
+
+public function all();//to call all data from DB
+
+public function create($attrbute); //to store any date in DB
+
+}
+4..app\Repository\create file called DBanyNameReository.php
+4.1..
+<?php
+namespace App\Repository;
+
+class DBanyNameRepository implements nameOfRepositoryInterface{
+
+public function all()
+{
+return Model::all();
+}
+
+public function create($attrputes)
+{
+return Model::create($attrputes);
+}
+
+
+}//end class
+5..php artisan make:provider RepositoryServicesProvider
+5.1..providers\RepositoryServicesProvider->register()
+$this->app->bind(nameofRepositoryInterface::class,DBNameOFRepository::class);//nameofRepositoryInterface::class tacke opject from DBNameOFRepository::class
+6..app\providers\RouteServicesProvider->protected namespace'App\Http\Controllers'; do un comment for it //to use controller in web.php without identifier of place
+7.config\app.php->providers  and add
+7.1..App\Providers\RepositoryAnyNameProvider::class,
+
+
+
+8..app\http\controllers\create anyNameController.php
+8.1..create constractor
+private $variableRepository;
+public function __construct(NameOfRepositoryInterface  $variableRepository)  //do opject from that class that mack implement for  NameOfRepositoryInterface that it defined in  providers\RepositoryServicesProvider->register()
+{
+   $this-> $variableRepository= $variableRepository;
+}
+8.2..public function store(Request $request)
+{
+
+$this->$variableRepository->creat($request->all());
+}
+
+
+9..routes\api.php or web.php
+9.1..Route::post('/store','controllerName@methodNAme')->name('store');
+

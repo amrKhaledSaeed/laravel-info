@@ -1,0 +1,5 @@
+1..linke to explain Eloquent: API Resources
+https://laravel.com/docs/9.x/eloquent-resources#main-content
+2..link of dokr with laravel ;sale
+https://laravel.com/docs/9.x/sail
+

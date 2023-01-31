@@ -1,0 +1,59 @@
+..........................information of git command.........
+1.git //to get all information of this folder
+......................to create new githup file of blthanya company
+1..$ echo "# warshic-backend" >> README.md
+//this folder will track down all of changes that occare in the git
+//and will be commited all changes that occared in th reposetory
+2.. git init //to create faile called .git in our progect this file may be hidden
+3.. git add README.md
+4..$ git commit -m "comment to what you do"
+5..$ git branch -M main //to create a new branche called main
+6..$ git remote add origin https://github.com/warshic/warshic-backend.git
+//to select your reposetory
+7..$ git push -u origin main   //to push main: is the -M name ;origin is remote name, main is branch name
+.........................command line to push changes..................................
+1..git status //to show whate new hapend in the local progect
+// the file name that have color red are file not added to my repository
+//the file have green color are the file that added to repo
+2..git add . //to add all modifying in the progect
+3..git status//to check your file has beem modified added or not
+4..git commit -m "yourFileName" //to defined your push name
+5..git push //to push to githup
+......................to add spaccefic file....
+1..can ues
+cd/file name //to open spacefic file
+2..git status // to know what the file not added to repository that have color red
+3..git add fileName
+4..git commit -m "yourFileName" //to add to your push comment
+5..git push -u origin main //to push that all you added in breach that called main
+//i will push in Development not main
+..........................branch...............
+1..git branch
+//to get all branches in your repo
+2..git branch branchName
+//to create branche
+3..git checkout branchName
+//to go to your branch
+4..git branch -d branchName
+//to delete branch
+5..git checkout -b branchName
+//create branche and go to it
+6..git branch -m newNAmeOFBranch
+//to rename branch
+7..touch fileNAme
+//to create file
+8..git push -d <remote_name> <branchname>
+//to delet in githup
+9..to git githab link
+git remote -v
+...............................................info.............
+1..contrpiotion: is the the person that has upload commit
+2..fork: the person use your repo
+3..to give person access of your repo 
+3.1..go to seting\collaborators->add person and send to sent added
+3.2..the person will delived the message can make accept invetation and make
+3.2.1..make this to download repo or project
+3.2.1.1..copy repo link
+3.2.1.2..go to cmd and make colon
+git colone linke
+      

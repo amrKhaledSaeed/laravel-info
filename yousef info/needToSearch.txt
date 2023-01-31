@@ -1,0 +1,4 @@
+........need to search 
+1..laravel reposetory curd
+2..laravel resouces 
+3..laravel clean code

@@ -1,0 +1,7 @@
+.............clean architecture consepts..v4.1.40..........
+1..lowlevel
+//any sings the user not have access in it
+2..high livel
+//the sings that user can access in it like controllers
+but in clean code musst be low level
+3..layers for clean arcitecture

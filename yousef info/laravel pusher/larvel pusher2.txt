@@ -1,0 +1,83 @@
+https://www.youtube.com/watch?v=3ErKzpFDiSU&list=PLCm7ZeRfGSP5u3WilkVBz4s-uQtsy79eb&index=2
+//playlist
+1..pusher: i give to pusher data and pusher will be make push this data in servere
+ pusher is soket server 
+2..create project
+2.1..run authenticatio ui
+composer require laravel/ui 
+2.2..setup node js
+2.3..install npm and run dev
+npm install 
+npm run dev
+2.4..use bootstrab ui auth
+php artisan ui bootstrap --auth
+2.4.1..after htis com and will get in web.php this
+Auth::routes();
+3..go to pusher and mack sign in
+https://dashboard.pusher.com/apps/1524776/getting_started
+3.1..complete env pusher datafrom pusher web
+3.2..in config/brootcasting->pusher this pusher will tack data from env when we
+sent event with data to pusher will handel this by this file
+3.3..copy script of pusher and past it in app.blade.php->upove of end body and upove of script start
+ <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+//this script 
+3.4..copy this to app.bleade.php to mack opject from pusher ; insure that var pusher =new pusher('the key in env is same
+<script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('f08f04bd91cb93b20d6c', {
+      cluster: 'eu'
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+      alert(JSON.stringify(data));
+    });
+  </script>
+3.5..put jquery cdn befor scrept of pusher
+https://releases.jquery.com/jquery/
+//choise manified
+the code is
+<script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+3.6..got to run php artisan serve  and make inspect and console and click login and check pusher in consol or not
+3.7..composer require pusher/pusher/-php-server
+
+..........................v3......
+1..go to fontawesome and copy notification fa
+https://www.bootstrapcdn.com/fontawesome/
+1.1..copy this
+https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css
+1.1.1..app.bleade.php and past it in header
+    <link href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css>
+2..craate post table
+php artisan make:migration create_posts_table
+3..go to config/app.php->provider do uncomment for this line number 194
+         App\Providers\BroadcastServiceProvider::class,
+4..make event
+php artisan make:event eventName
+4.1..after htis command line the app/event/yourEventName created
+4.2..go to in this file app/event/yourEventName->broadcastOn
+return new Channel('new-notification');//new-notification:is channel-name
+4.3..go to controller function create and put it 
+ $data = [
+            'usser_id' =>  Auth::id(),
+            'post_id' => $request->post_id,
+            'comment' => $request->post_content,
+        ];
+        event(new newNotification($data));
+4.4.. go to app/event/yourEventName->construct put $data
+  public function __construct($data)
+    {
+        $this->user_id = $data['user_id'];
+        $this->post_id = $data['post_id'];
+        $this->comment = $data['comment'];
+    }
+4.5..define the variable that use in Data in event class as public
+5..mack js file 
+
+...........some information.....v4...12.00......
+1.when select relation by with must be select forign key to return value
+
+
